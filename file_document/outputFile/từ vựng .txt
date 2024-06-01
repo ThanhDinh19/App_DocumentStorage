@@ -1,0 +1,25 @@
+-port: Hải cảng
+
+-coast: bờ biển
+
+-Seafood: hải sản
+
+-tropical fruit: trái cây nhiệt đới
+ 
+-shop assistants: nhân viên bán hàng
+
+-huge: to lớn
+
+-sculptures: tác phẩm điêu khắc
+
+-cable: cáp
+
+-concert: buổi hòa nhạc
+
+-take course: tham gia khóa học
+
+-jungle: rừng
+
+-ancient: cổ đại 
+
+-incredible: đáng kinh ngạc
