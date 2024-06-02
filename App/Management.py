@@ -2,14 +2,33 @@ from Note import *
 from ImageDocument import *
 from FileDocument import *
 
-def main():
+
+
+def SignIn():
+    sign_in = Tk()
+    sign_in.geometry("500x300")
+    sign_in.resizable(False, False)
+    sign_in.title("DocMemo")
+    sign_in.iconbitmap("Logo\\logo_doc_memo.ico")
+    title_of_app = Label(sign_in, text = "DocMemo", fg = "#0074D9", font=("Time new roman", 13, 'bold'))
+    title_of_app.pack(anchor='center', pady=5)
+    text1 = Label(sign_in, text = "Sign in to DocMemo", font=("Time new roman", 13, 'bold'))
+    text2 = Label(sign_in, text = "use your account")
+    text1.pack()
+    text2.pack()
+
+    
+
+    sign_in.mainloop()
+
+
+def App():
     root = Tk()
     root.geometry("600x700")
     root.iconbitmap("Logo\\logo_app.ico")
     root.title("NOTE TAKING AND DOCUMENT STORAGE") 
     img = Image.open("images\\background_notejpg.jpg") 
     img = img.resize((600, 700), Image.LANCZOS)
-    
     lb_title_app = Label(root, text="Applications", font=("Time new roman", 18, "bold")).place(x=230, y=20)
     
     #------note
@@ -83,8 +102,11 @@ def main():
     func2_win = canvas_main.create_window(200, 85, window=func2)   
     func3_win = canvas_main.create_window(200, 130, window=func3)  
     func4_win = canvas_main.create_window(200, 175, window=func4)     
-    
+    root.mainloop()
 
-    root.mainloop() 
+
+def main():
+    SignIn()
+
 if __name__ == "__main__":
-    main()       
+    main()    
