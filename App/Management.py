@@ -6,18 +6,35 @@ from FileDocument import *
 
 def SignIn():
     sign_in = Tk()
-    sign_in.geometry("500x300")
+    sign_in.geometry("500x400")
     sign_in.resizable(False, False)
     sign_in.title("DocMemo")
     sign_in.iconbitmap("Logo\\logo_doc_memo.ico")
-    title_of_app = Label(sign_in, text = "DocMemo", fg = "#0074D9", font=("Time new roman", 13, 'bold'))
+    img_bg = Image.open("Images\\background.png")
+    img_bg_tk = ImageTk.PhotoImage(img_bg)
+    background_login = Label(sign_in, image = img_bg_tk)
+    background_login.place(x=0, y=0)
+
+    title_of_app = Label(sign_in, text = "DocMemo", fg = "#0074D9", bg = "#00142C", font=("Time new roman", 13, 'bold'))
+    text1 = Label(sign_in, text = "Sign in to DocMemo", font=("Time new roman", 13, 'bold'), bg = "#00142C", fg = "white")
+    text2 = Label(sign_in, text = "Use your account", bg = "#00142C", fg = "white")
+   
+    canvas_login = Canvas(sign_in, width = 215, height = 230, bg = "grey")
+    
+    email_label = Label(canvas_login, text="Email address", font=("Time new roman", 10))
+    email_entry = Entry(canvas_login, width = 30)
+    password_label = Label(canvas_login, text="Password", font=("Time new roman", 10))
+    password_entry = Entry(canvas_login, width = 30)
+
+    canvas_login.create_window((63, 26), window=email_label)
+    canvas_login.create_window((110, 50), window=email_entry)
+    canvas_login.create_window((50, 75), window=password_label)
+    canvas_login.create_window((110, 100), window=password_entry)
+
     title_of_app.pack(anchor='center', pady=5)
-    text1 = Label(sign_in, text = "Sign in to DocMemo", font=("Time new roman", 13, 'bold'))
-    text2 = Label(sign_in, text = "use your account")
     text1.pack()
     text2.pack()
-
-    
+    canvas_login.pack(pady = 10)
 
     sign_in.mainloop()
 
