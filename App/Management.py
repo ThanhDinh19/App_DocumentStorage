@@ -19,17 +19,20 @@ def SignIn():
     text1 = Label(sign_in, text = "Sign in to DocMemo", font=("Time new roman", 13, 'bold'), bg = "#00142C", fg = "white")
     text2 = Label(sign_in, text = "Use your account", bg = "#00142C", fg = "white")
    
-    canvas_login = Canvas(sign_in, width = 215, height = 230, bg = "grey")
+    canvas_login = Canvas(sign_in, width = 215, height = 230, bg = "#00142C")
     
-    email_label = Label(canvas_login, text="Email address", font=("Time new roman", 10))
+    email_label = Label(canvas_login, text="Email address", font=("Time new roman", 10), bg = "#00142C", fg='white')
     email_entry = Entry(canvas_login, width = 30)
-    password_label = Label(canvas_login, text="Password", font=("Time new roman", 10))
+    password_label = Label(canvas_login, text="Password", font=("Time new roman", 10), bg = "#00142C", fg='white')
     password_entry = Entry(canvas_login, width = 30)
+    btn_sign_in = Button(sign_in, text="Sign in", width = 25)
+
 
     canvas_login.create_window((63, 26), window=email_label)
     canvas_login.create_window((110, 50), window=email_entry)
     canvas_login.create_window((50, 75), window=password_label)
     canvas_login.create_window((110, 100), window=password_entry)
+    canvas_login.create_window((110, 135), window=btn_sign_in)
 
     title_of_app.pack(anchor='center', pady=5)
     text1.pack()
