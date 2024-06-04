@@ -15,6 +15,8 @@ def SignIn():
     background_login = Label(sign_in, image = img_bg_tk)
     background_login.place(x=0, y=0)
 
+    file_account_data = "file_accounts\\accounts.json"
+
     title_of_app = Label(sign_in, text = "DocMemo", fg = "#0074D9", bg = "#00142C", font=("Time new roman", 13, 'bold'))
     text1 = Label(sign_in, text = "Sign in to DocMemo", font=("Time new roman", 13, 'bold'), bg = "#00142C", fg = "white")
     text2 = Label(sign_in, text = "Use your account", bg = "#00142C", fg = "white")
@@ -22,10 +24,43 @@ def SignIn():
     canvas_login = Canvas(sign_in, width = 215, height = 230, bg = "#00142C")
     
     email_label = Label(canvas_login, text="Email address", font=("Time new roman", 10), bg = "#00142C", fg='white')
-    email_entry = Entry(canvas_login, width = 30)
     password_label = Label(canvas_login, text="Password", font=("Time new roman", 10), bg = "#00142C", fg='white')
-    password_entry = Entry(canvas_login, width = 30)
-    btn_sign_in = Button(sign_in, text="Sign in", width = 25)
+
+    def on_click_emailEntry(event):
+        if email_entry.get() == "Email address":
+            email_entry.delete(0, 'end')
+            email_entry.config(fg='black')
+    def on_click_password(event):
+        if password_entry.get() == "Password":
+            password_entry.delete(0, 'end')
+            password_entry.config(fg='black', show='*')    
+
+    def load_accounts(file_account_data):
+        if os.path.exists(file_account_data):
+            with open(file_account_data, 'r', encoding ='utf8') as fi_load:
+                data = json.load(fi_load)
+                return data
+        else:
+            return []
+        
+    def save_account(file_account_data):
+        data = load_accounts(file_account_data)
+        account = {"Email": email_entry.get(), "Password": password_entry.get()}
+        for item in data:
+            if item["Email"] == account["Email"]:
+                mb.showinfo("Email already exists !")
+                return 
+        data.append(account)
+        with open(file_account_data, 'w') as fi_write:
+            json.dump(data, fi_write, indent=4, default=lambda x: x.__dict__)
+
+    email_entry = Entry(canvas_login, width = 30, fg = 'gray')
+    email_entry.insert(0, "Email address")
+    email_entry.bind("<FocusIn>", on_click_emailEntry)
+    password_entry = Entry(canvas_login, width = 30, fg = 'gray')
+    password_entry.insert(0, "Password")
+    password_entry.bind("<FocusIn>", on_click_password)
+    btn_sign_in = Button(sign_in, text="Sign in", width = 25, command = lambda f = file_account_data: save_account(f))
 
 
     canvas_login.create_window((63, 26), window=email_label)
