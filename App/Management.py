@@ -30,6 +30,7 @@ def SignIn():
         if email_entry.get() == "Email address":
             email_entry.delete(0, 'end')
             email_entry.config(fg='black')
+            
     def on_click_password(event):
         if password_entry.get() == "Password":
             password_entry.delete(0, 'end')
@@ -43,16 +44,30 @@ def SignIn():
         else:
             return []
         
+
+    def check_email(email):
+        pattern = r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,4}'
+        ck = re.match(pattern, email)
+        return ck
+        
     def save_account(file_account_data):
+        flags = False
         data = load_accounts(file_account_data)
+        #if check_email(email_entry.get()) is None:
+            
+
         account = {"Email": email_entry.get(), "Password": password_entry.get()}
         for item in data:
             if item["Email"] == account["Email"]:
                 mb.showinfo("Email already exists !")
-                return 
+                return
+        flags = True 
         data.append(account)
         with open(file_account_data, 'w') as fi_write:
             json.dump(data, fi_write, indent=4, default=lambda x: x.__dict__)
+        if flags == True:
+            sign_in.destroy()
+            App()
 
     email_entry = Entry(canvas_login, width = 30, fg = 'gray')
     email_entry.insert(0, "Email address")
@@ -80,11 +95,11 @@ def SignIn():
 def App():
     root = Tk()
     root.geometry("600x700")
-    root.iconbitmap("Logo\\logo_app.ico")
+    root.iconbitmap("Logo\\logo_doc_memo.ico")
     root.title("NOTE TAKING AND DOCUMENT STORAGE") 
     img = Image.open("images\\background_notejpg.jpg") 
     img = img.resize((600, 700), Image.LANCZOS)
-    lb_title_app = Label(root, text="Applications", font=("Time new roman", 18, "bold")).place(x=230, y=20)
+    lb_title_app = Label(root, text="DocMemo", fg = "#0074D9", font=("Time new roman", 18, "bold")).place(x=230, y=20)
     
     #------note
     def note():
