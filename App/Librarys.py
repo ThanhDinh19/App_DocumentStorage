@@ -8,3 +8,4 @@ from PIL import Image, ImageTk
 from docx import Document
 import fitz
 import re
+import tkinter.font as tkFont

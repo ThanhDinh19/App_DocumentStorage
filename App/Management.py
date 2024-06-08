@@ -40,51 +40,79 @@ def SignIn():
         ck = re.match(pattern, email)
         return ck
         
-    def save_account(file_account_data):
-        flag = False #flag checks if email exists or not
+    def create_an_account(file_account_data):
+        font = tkFont.Font(font=CreateAnAccount.cget("font"))
+        underline = font.cget("underline")
+        if underline:
+            font.config(underline=0)
+        else:
+            font.config(underline=1)
+        CreateAnAccount.config(font=font)
+        # flag = False #flag checks if email exists or not
+        # data = load_accounts(file_account_data)
+        # if check_email(email_entry.get()) is None:
+        #     notification_label.config(text="Incorrect email or password.")
+        #     return
+    
+        # account = {"Email": email_entry.get(), "Password": password_entry.get()}
+        # for item in data:
+        #     if item["Email"] == account["Email"]:
+        #         mb.showinfo("Email already exists !")
+        #         return
+        # flag = True 
+        # data.append(account)
+        # with open(file_account_data, 'w') as fi_write:
+        #     json.dump(data, fi_write, indent=4, default=lambda x: x.__dict__)
+        # if flag == True:
+        #     sign_in.destroy()
+        #     App()
+    
+    
+    def login_account(file_account_data):
+        flag = False
         data = load_accounts(file_account_data)
-        if check_email(email_entry.get()) is None:
-            notification_label.config(text="Incorrect email or password.")
-            return
-        
-
-        account = {"Email": email_entry.get(), "Password": password_entry.get()}
+        if data == 0:
+            canvas_login.create_window((99, 165), window=notification_label)
+            notification_label.config(text="Couldn't find your DocMemo Account")
+            return 
         for item in data:
-            if item["Email"] == account["Email"]:
-                mb.showinfo("Email already exists !")
-                return
-        flag = True 
-        data.append(account)
-        with open(file_account_data, 'w') as fi_write:
-            json.dump(data, fi_write, indent=4, default=lambda x: x.__dict__)
+            if item["Email"] == email_entry.get() and item["Password"] == password_entry.get():
+                flag = True
+                break
         if flag == True:
             sign_in.destroy()
             App()
-
-            
-
+        else:
+            canvas_login.create_window((99, 165), window=notification_label)
+            notification_label.config(text="Incorrect email or password.")
+        
     title_of_app = Label(sign_in, text = "DocMemo", fg = "#0074D9", bg = "#00142C", font=("Time new roman", 13, 'bold'))
     text1 = Label(sign_in, text = "Sign in to DocMemo", font=("Time new roman", 13, 'bold'), bg = "#00142C", fg = "white")
     text2 = Label(sign_in, text = "Use your account", bg = "#00142C", fg = "white")
-    canvas_login = Canvas(sign_in, width = 215, height = 230, bg = "#00142C")
+    canvas_login = Canvas(sign_in, width = 280, height = 230, bg = "#00142C")
+
+    #wedgets in canvas_login
     email_label = Label(canvas_login, text="Email address", font=("Time new roman", 10), bg = "#00142C", fg='white')
     password_label = Label(canvas_login, text="Password", font=("Time new roman", 10), bg = "#00142C", fg='white')
-
-    email_entry = Entry(canvas_login, width = 30, fg = 'gray',highlightthickness=1, highlightbackground="#00142C", highlightcolor="blue")
+    email_entry = Entry(canvas_login, width = 40, fg = 'gray',highlightthickness=1, highlightbackground="#00142C", highlightcolor="blue")
     email_entry.insert(0, "Email address")
     email_entry.bind("<FocusIn>", on_click_emailEntry)
-    password_entry = Entry(canvas_login, width = 30, fg = 'gray', highlightthickness=1, highlightbackground="#00142C", highlightcolor="blue")
+    password_entry = Entry(canvas_login, width = 40, fg = 'gray', highlightthickness=1, highlightbackground="#00142C", highlightcolor="blue")
     password_entry.insert(0, "Password")
     password_entry.bind("<FocusIn>", on_click_password)
-    btn_sign_in = Button(sign_in, text="Sign in", width = 25, bg='#1A73E8', fg='white', command = lambda f = file_account_data: save_account(f))
+    btn_sign_in = Button(sign_in, text="Sign in", width = 33, bg='#1A73E8', fg='white', command = lambda f = file_account_data: login_account(f))
     notification_label = Label(canvas_login, text = "", fg='red', bg = "#00142C")
+    CreateAnAccount = Label(canvas_login, text="Create an account", fg="blue", bg='#00142C', cursor='hand2')
+    CreateAnAccount.bind("<Button-1>", create_an_account)
 
     canvas_login.create_window((63, 26), window=email_label)
-    canvas_login.create_window((110, 50), window=email_entry)
+    canvas_login.create_window((145, 50), window=email_entry)
     canvas_login.create_window((50, 75), window=password_label)
-    canvas_login.create_window((110, 100), window=password_entry)
-    canvas_login.create_window((110, 135), window=btn_sign_in)
-    canvas_login.create_window((92, 165), window=notification_label)
+    canvas_login.create_window((145, 100), window=password_entry)
+    canvas_login.create_window((145, 135), window=btn_sign_in)
+    canvas_login.create_window((75, 210), window=CreateAnAccount)
+    
+    
 
     title_of_app.pack(anchor='center', pady=5)
     text1.pack()
@@ -92,7 +120,7 @@ def SignIn():
     canvas_login.pack(pady = 10)
     sign_in.mainloop()
 
-
+#====================================================================================================================================
 def App():
     root = Tk()
     root.geometry("600x700")
