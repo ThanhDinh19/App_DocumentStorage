@@ -3,7 +3,7 @@ from ImageDocument import *
 from FileDocument import *
 
 
-
+#===============================================================SIGN IN=========================================================================
 def SignIn():
     sign_in = Tk()
     sign_in.geometry("500x400")
@@ -48,6 +48,10 @@ def SignIn():
         else:
             font.config(underline=1)
         CreateAnAccount.config(font=font)
+        
+        sign_up_canvas = Canvas(sign_in, width = 500, height=400, bg="#fff")
+        sign_up_canvas.pack()
+
         # flag = False #flag checks if email exists or not
         # data = load_accounts(file_account_data)
         # if check_email(email_entry.get()) is None:
@@ -85,7 +89,7 @@ def SignIn():
         else:
             canvas_login.create_window((99, 165), window=notification_label)
             notification_label.config(text="Incorrect email or password.")
-        
+
     title_of_app = Label(sign_in, text = "DocMemo", fg = "#0074D9", bg = "#00142C", font=("Time new roman", 13, 'bold'))
     text1 = Label(sign_in, text = "Sign in to DocMemo", font=("Time new roman", 13, 'bold'), bg = "#00142C", fg = "white")
     text2 = Label(sign_in, text = "Use your account", bg = "#00142C", fg = "white")
@@ -112,15 +116,32 @@ def SignIn():
     canvas_login.create_window((145, 135), window=btn_sign_in)
     canvas_login.create_window((75, 210), window=CreateAnAccount)
     
-    
-
     title_of_app.pack(anchor='center', pady=5)
     text1.pack()
     text2.pack()
     canvas_login.pack(pady = 10)
     sign_in.mainloop()
+#===============================================================SIGN UP=========================================================================
+def SignUp():
+    sign_up = Tk()
+    sign_up.geometry("500x400")
+    sign_up.resizable(False, False)
+    sign_up.title("DocMemo")
+    sign_up.iconbitmap("Logo\\logo_doc_memo.ico")
+    img_bg = Image.open("Images\\background.png")
+    img_bg_tk = ImageTk.PhotoImage(img_bg)
+    background_signup = Label(sign_up, image = img_bg_tk)
+    background_signup.place(x=0, y=0)
 
-#====================================================================================================================================
+    title_label = Label(sign_up, text="Welcome to DocMemo", font=("Time new roman", 12, "bold"))
+    title_label.pack()
+
+    sign_up.mainloop()
+
+
+
+
+#===============================================================APPLICATION=====================================================================
 def App():
     root = Tk()
     root.geometry("600x700")

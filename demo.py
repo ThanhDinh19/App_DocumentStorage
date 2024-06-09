@@ -1,30 +1,45 @@
 import tkinter as tk
-import tkinter.font as tkFont
 
-def toggle_underline(event):
-    # Lấy kiểu font hiện tại của Label
-    font = tkFont.Font(font=label.cget("font"))
-    
-    # Kiểm tra xem font hiện tại có gạch dưới hay không
-    underline = font.cget("underline")
-    
-    # Đảo ngược trạng thái gạch dưới
-    if underline:
-        font.config(underline=0)
-    else:
-        font.config(underline=1)
-    
-    # Cập nhật lại font cho Label
-    label.config(font=font)
+def show_frame(frame):
+    frame.tkraise()
 
 root = tk.Tk()
-root.title("Label with Underline Toggle")
+root.title("Chuyển trang trong Tkinter")
 
-# Tạo Label
-label = tk.Label(root, text="Nhấn vào đây để gạch dưới văn bản", font="TkDefaultFont 12")
-label.pack(pady=20)
+# Thiết lập cấu trúc lưới để các frame chồng lên nhau
+root.rowconfigure(0, weight=1)
+root.columnconfigure(0, weight=1)
 
-# Gắn sự kiện nhấn chuột vào Label
-label.bind("<Button-1>", toggle_underline)
+# Tạo các frame
+login_frame = tk.Frame(root)
+register_frame = tk.Frame(root)
+
+login_frame.grid(row=0, column=0, sticky='nsew')
+register_frame.grid(row=0, column=0, sticky='nsew')
+# for frame in (login_frame, register_frame):
+#     frame.grid(row=0, column=0, sticky='nsew')
+
+# Trang đăng nhập
+login_label = tk.Label(login_frame, text="Trang Đăng Nhập", font=("Arial", 18))
+login_label.pack(pady=20)
+
+login_button = tk.Button(login_frame, text="Đăng nhập", font=("Arial", 14))
+login_button.pack(pady=10)
+
+switch_to_register = tk.Button(login_frame, text="Chuyển đến trang Đăng Ký", font=("Arial", 14), command=lambda: show_frame(register_frame))
+switch_to_register.pack(pady=10)
+
+# Trang đăng ký
+register_label = tk.Label(register_frame, text="Trang Đăng Ký", font=("Arial", 18))
+register_label.pack(pady=20)
+
+register_button = tk.Button(register_frame, text="Đăng ký", font=("Arial", 14))
+register_button.pack(pady=10)
+
+switch_to_login = tk.Button(register_frame, text="Chuyển đến trang Đăng Nhập", font=("Arial", 14), command=lambda: show_frame(login_frame))
+switch_to_login.pack(pady=10)
+
+# Hiển thị trang đăng nhập đầu tiên
+show_frame(login_frame)
 
 root.mainloop()
