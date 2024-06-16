@@ -282,7 +282,6 @@ class Note:
         btn_back = Button(frame, text="Back", width=8, relief='raised', command=back)
         btn_back.place(x=90, y = 565)
 
-   
     
 
 

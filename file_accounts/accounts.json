@@ -2,5 +2,25 @@
     {
         "Email": "nguyenngothanhdinh.hvt@gmail.com",
         "Password": "dinh123"
+    },
+    {
+        "Email": "nguyenvanava@gamil.com",
+        "Password": "Dinh123@"
+    },
+    {
+        "Email": "nguyenvanb.vb@gamil.com",
+        "Password": "Dinh123@"
+    },
+    {
+        "Email": "tranthique.ttq@gmail.com",
+        "Password": "TranQue12356"
+    },
+    {
+        "Email": "NguyenVanHiepnvh@gmail.com",
+        "Password": "VanHiep999@"
+    },
+    {
+        "Email": "NguyenThanhTu.tt@gmail.com",
+        "Password": "ThanhTu1234"
     }
 ]
